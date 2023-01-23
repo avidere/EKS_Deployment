@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onlinebookstore-microservice
+  labels:
+    app: onlinebookstore-restapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onlinebookstore-restapp
+  template:
+    metadata:
+      labels:
+        app: onlinebookstore-restapp
+    spec:
+      containers:
+        - name: onlinebookstore-restapp
+          image: avinashdere99/onlinebookstore:1.0.1-22
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOSTNAME
+              value: "mysqlsvc"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "onlinebookstore"
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "dbpassword11"
