@@ -1,18 +1,11 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
-root@ip-172-31-22-228:~/k8s# cat persistant_volume_clain.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ebs-mysql-pv-claim
-spec:
+spec: 
   accessModes:
     - ReadWriteOnce
   storageClassName: ebs-sc
-  resources:
+  resources: 
     requests:
       storage: 4Gi

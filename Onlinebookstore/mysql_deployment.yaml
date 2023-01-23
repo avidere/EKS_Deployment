@@ -2,42 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-spec:
+spec: 
   replicas: 1
   selector:
     matchLabels:
       app: mysql
   strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
+    type: Recreate 
+  template: 
+    metadata: 
+      labels: 
         app: mysql
-    spec:
+    spec: 
       containers:
         - name: mysql
           image: mysql:8.0.32
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: dbpassword11
-            - name: MYSQL_DATABASE
-              value: onlinebookstore
-            - name: MYSQL_USER
-              value: Admin
-            - name: MYSQL_PASSWORD
-              value: Admin
           ports:
             - containerPort: 3306
-              name: mysql
+              name: mysql    
           volumeMounts:
             - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
-            - name: onlinebookstore-dbcreation-script
-              mountPath: /docker-entrypoint-initdb.d #https://hub.docker.com/_/mysql Refer Initializing a fresh instance                         
-      volumes:
+              mountPath: /var/lib/mysql    
+            - name: usermanagement-dbcreation-script
+              mountPath: /docker-entrypoint-initdb.d #https://hub.docker.com/_/mysql Refer Initializing a fresh instance                                            
+      volumes: 
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: ebs-mysql-pv-claim
-        - name: onlinebookstore-dbcreation-script
+        - name: usermanagement-dbcreation-script
           configMap:
-            name: onlinebookstore-dbcreation-script
+            name: usermanagement-dbcreation-script

@@ -1,32 +1,32 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment 
 metadata:
-  name: onlinebookstore-microservice
+  name: usermgmt-microservice
   labels:
-    app: onlinebookstore-restapp
+    app: usermgmt-restapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: onlinebookstore-restapp
-  template:
+      app: usermgmt-restapp
+  template:  
     metadata:
-      labels:
-        app: onlinebookstore-restapp
+      labels: 
+        app: usermgmt-restapp
     spec:
       containers:
-        - name: onlinebookstore-restapp
-          image: avinashdere99/onlinebookstore:1.0.1-22
-          ports:
-            - containerPort: 8080
+        - name: usermgmt-restapp
+          image: stacksimplify/kube-usermanagement-microservice:1.0.0
+          ports: 
+            - containerPort: 8095           
           env:
             - name: DB_HOSTNAME
-              value: "mysqlsvc"
+              value: "mysql"            
             - name: DB_PORT
-              value: "3306"
+              value: "3306"            
             - name: DB_NAME
-              value: "onlinebookstore"
+              value: "usermgmt"            
             - name: DB_USERNAME
-              value: "root"
+              value: "root"            
             - name: DB_PASSWORD
-              value: "dbpassword11"
+              value: "dbpassword11"            
