@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+spec:
+  minReadySeconds: 10
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.6
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-persistent-storage
+		  env:
+			- name: MYSQL_DATABASE
+			  value: 'openmrs'
+			- name: MYSQL_USER
+			  value: 'Admin'
+			- name: MYSQL_PASSWORD
+			  value: 'Admin'
+			- name: MYSQL_ROOT_PASSWORD
+			  value: 'Admin'
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: ebs-mysql-pv-claim
