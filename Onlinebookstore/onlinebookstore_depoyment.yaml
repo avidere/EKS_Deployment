@@ -19,4 +19,14 @@ spec:
           image: avinashdere99/onlinebookstore:1.0.1-22
           ports: 
             - containerPort: 8080         
-          
+          env:
+            - name: db.host
+              value: 'mysql-service'
+            - name: db.port
+              value: '3306'
+            - name: db.name
+              value: 'onlinebookstore'
+            - name: db.username
+              value: 'root'
+            - name: db.password
+              value: 'root'
